@@ -34,11 +34,11 @@ public:
      virtual void Add_Money(double Money) = 0;
      virtual void Subtract_Money(double Money) = 0;
 
-    // virtual void Add_Money(double Money)
+    // void Add_Money(double Money)
     // {
     //     this->Сurrent_Amount += Money;
     // }
-    // virtual void Subtract_Money(double Money)
+    // void Subtract_Money(double Money)
     // {
     //     this->Сurrent_Amount -= Money;
     // }
