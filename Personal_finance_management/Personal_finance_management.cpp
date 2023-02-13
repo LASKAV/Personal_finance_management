@@ -42,12 +42,12 @@ public:
     // {
     //     this->Сurrent_Amount -= Money;
     // }
-    // double Show_MoneyStorage()
-    // {
-    //     cout << " Сurrent_Amount = " << this->Сurrent_Amount << endl;
-    // 
-    //     return this->Сurrent_Amount;
-    // }
+    double Show_MoneyStorage()
+    {
+        cout << " Сurrent_Amount = " << this->Сurrent_Amount << endl;
+    
+        return this->Сurrent_Amount;
+    }
     ~MoneyStorage()
     {
         cout << "Destructor MoneyStorage" << endl;
