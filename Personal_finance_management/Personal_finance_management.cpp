@@ -31,20 +31,23 @@ public:
     {
         this->Сurrent_Amount = Сurrent_Amount;
     }
-    virtual void Add_Money(double Money)
-    {
-        this->Сurrent_Amount += Money;
-    }
-    virtual void Subtract_Money(double Money)
-    {
-        this->Сurrent_Amount -= Money;
-    }
-    virtual double Show_MoneyStorage()
-    {
-        cout << " Сurrent_Amount = " << this->Сurrent_Amount << endl;
+     virtual void Add_Money(double Money) = 0;
+     virtual void Subtract_Money(double Money) = 0;
 
-        return this->Сurrent_Amount;
-    }
+    // virtual void Add_Money(double Money)
+    // {
+    //     this->Сurrent_Amount += Money;
+    // }
+    // virtual void Subtract_Money(double Money)
+    // {
+    //     this->Сurrent_Amount -= Money;
+    // }
+    // double Show_MoneyStorage()
+    // {
+    //     cout << " Сurrent_Amount = " << this->Сurrent_Amount << endl;
+    // 
+    //     return this->Сurrent_Amount;
+    // }
     ~MoneyStorage()
     {
         cout << "Destructor MoneyStorage" << endl;
@@ -68,6 +71,7 @@ public:
         Entertainment = NULL;
         Utilities = NULL;
     }
+
     void Show_expense()
     {
         cout
