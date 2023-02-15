@@ -21,27 +21,27 @@ using namespace std;
 class MoneyStorage                  // Basic "Хранилища денег"
 {   
 protected:
-    double Сurrent_Amount;          // Текущее количество денег 
+    double Сurrent_Amount;          // Текущее количество денег
+    short Num_storage;              // Номер Хранилища
 public:
     MoneyStorage()                  // Конструктор без параметров                
     {
         Сurrent_Amount = 00.00;
-    }                                       
-     MoneyStorage(double Сurrent_Amount)     // Конструктор с одним параметром 
+        Num_storage = NULL;
+    }
+    MoneyStorage(double Сurrent_Amount, short Num_storage)     // Конструктор с одним параметром 
     {
         this->Сurrent_Amount = Сurrent_Amount;
+        this->Num_storage = Num_storage;
     }
-     virtual void Add_Money(double Money) = 0;
-     virtual void Subtract_Money(double Money) = 0;
-
-    // void Add_Money(double Money)
-    // {
-    //     this->Сurrent_Amount += Money;
-    // }
-    // void Subtract_Money(double Money)
-    // {
-    //     this->Сurrent_Amount -= Money;
-    // }
+    double Get_Сurrent_Amount()
+    {
+        return this->Сurrent_Amount;
+    }
+    short Get_Num_storage()
+    {
+        return this->Num_storage;
+    }
     double Show_MoneyStorage()
     {
         cout << " Сurrent_Amount = " << this->Сurrent_Amount << endl;
@@ -52,16 +52,25 @@ public:
     {
         cout << "Destructor MoneyStorage" << endl;
     }
+    virtual void Add_Money(double Money) = 0;
+    virtual void Subtract_Money(double Money) = 0;
 };
+
+/*
+09.02
+Создать класс для затрат. Назвать этот класс Spending.
+Наполнить этот класс полями и прототипами методов. Прислать в качестве выполненного ДЗ определение этого класса
+(пока можно ограничиться прототипами методов - тела методов можно пока не писать).
+*/
 
 class Spending      // Расходы
 {
 private:
-    int Products;       // продукты
-    int Restaurants;    // рестораны
-    int Medecine;       // медецина
-    int Entertainment;  // развлечения
-    int Utilities;      // коммуналка  
+    double Products;       // продукты
+    double Restaurants;    // рестораны
+    double Medecine;       // медецина
+    double Entertainment;  // развлечения
+    double Utilities;      // коммуналка  
 public:
     Spending()
     {
@@ -72,6 +81,27 @@ public:
         Utilities = NULL;
     }
 
+    void Set_Products(double Products)
+    {
+        this->Products = Products;
+    }
+    void Set_Restaurants(double Products)
+    {
+        this->Restaurants = Products;
+    }
+    void Set_Medecine(double Products)
+    {
+        this->Medecine = Products;
+    }
+    void Set_Entertainment(double Products)
+    {
+        this->Entertainment = Products;
+    }
+    void Set_Utilities(double Products)
+    {
+        this->Utilities = Products;
+    }
+
     void Show_expense()
     {
         cout
@@ -79,7 +109,7 @@ public:
             << "Restaurants = " << Restaurants << endl
             << "Medecine = " << Medecine << endl
             << "Entertainment = " << Entertainment << endl
-            << "Utilities = " << Utilities << endl;
+            << "Utilities = " << Utilities << endl << endl;
     }
 
 };
@@ -97,6 +127,7 @@ class Wallet : public MoneyStorage
 
 int main()
 {
+    Spending Spend;
 
     while (true)    // Menu
     {
@@ -118,8 +149,56 @@ int main()
         case 2:
             break;
         case 3:
+            do{
+                short choice_expense;
+                double price = NULL;
+                cout
+                    << "1. Products\n"
+                    << "2. Restaurants\n"
+                    << "3. Medecine\n"
+                    << "4. Entertainment\n"
+                    << "5. Utilities\n"
+                    << "6. Exit\n"
+                    << "Enter your choice: ";
+                cin >> choice_expense;
+                if (price != NULL) price = NULL;
+                if (choice_expense == 6)
+                {
+                    system("cls");
+                    break;
+                }
+                switch (choice_expense)
+                {
+                case 1:
+                    cout << "Enter Products : "; cin >> price;
+                    Spend.Set_Products(price);
+                    break;
+                case 2:
+                    cout << "Enter Restaurants : "; cin >> price;
+                    Spend.Set_Restaurants(price);
+                    break;
+                case 3:
+                    cout << "Enter Medecine : "; cin >> price;
+                    Spend.Set_Medecine(price);
+                    break;
+                case 4:
+                    cout << "Enter Entertainment : "; cin >> price;
+                    Spend.Set_Entertainment(price);
+                    break;
+                case 5:
+                    cout << "Enter Utilities : "; cin >> price;
+                    Spend.Set_Utilities(price);
+                    break;
+                case 6:
+                    break;
+                default:
+                    cout << "Invalid choice!\n";
+                }
+            } while (true);
             break;
         case 4:
+            system("cls");
+            Spend.Show_expense();
             break;
         case 5:
             break;
