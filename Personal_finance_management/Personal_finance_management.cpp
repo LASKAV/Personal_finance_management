@@ -22,14 +22,15 @@ class MoneyStorage                  // Basic "Хранилища денег"
 {   
 protected:
     double Сurrent_Amount;          // Текущее количество денег
+
     short Num_storage;              // Номер Хранилища
 public:
     MoneyStorage()                  // Конструктор без параметров                
     {
         Сurrent_Amount = 00.00;
-        Num_storage = NULL;
+        Num_storage = 0;
     }
-    MoneyStorage(double Сurrent_Amount, short Num_storage)     // Конструктор с одним параметром 
+    MoneyStorage(double Сurrent_Amount, short Num_storage)     // Конструктор с одним параметром
     {
         this->Сurrent_Amount = Сurrent_Amount;
         this->Num_storage = Num_storage;
@@ -74,32 +75,32 @@ private:
 public:
     Spending()
     {
-        Products = NULL;
-        Restaurants = NULL;
-        Medecine = NULL;
-        Entertainment = NULL;
-        Utilities = NULL;
+        Products = 0.0;
+        Restaurants = 0.0;
+        Medecine = 0.0;
+        Entertainment = 0.0;
+        Utilities = 0.0;
     }
 
-    void Set_Products(double Products)
+    void Set_Products(double Products_)
     {
-        this->Products = Products;
+        this->Products = Products_;
     }
-    void Set_Restaurants(double Products)
+    void Set_Restaurants(double Products_)
     {
-        this->Restaurants = Products;
+        this->Restaurants = Products_;
     }
-    void Set_Medecine(double Products)
+    void Set_Medecine(double Products_)
     {
-        this->Medecine = Products;
+        this->Medecine = Products_;
     }
-    void Set_Entertainment(double Products)
+    void Set_Entertainment(double Products_)
     {
-        this->Entertainment = Products;
+        this->Entertainment = Products_;
     }
-    void Set_Utilities(double Products)
+    void Set_Utilities(double Products_)
     {
-        this->Utilities = Products;
+        this->Utilities = Products_;
     }
 
     void Show_expense()
@@ -151,7 +152,7 @@ int main()
         case 3:
             do{
                 short choice_expense;
-                double price = NULL;
+                double price = 0.0;
                 cout
                     << "1. Products\n"
                     << "2. Restaurants\n"
@@ -161,7 +162,7 @@ int main()
                     << "6. Exit\n"
                     << "Enter your choice: ";
                 cin >> choice_expense;
-                if (price != NULL) price = NULL;
+                if (price != 0.0) price = 0.0;
                 if (choice_expense == 6)
                 {
                     system("cls");
