@@ -50,6 +50,26 @@ if (year % 4 == 0 && year != 0)
     return false;
 }
 
+struct  Time
+{
+    unsigned hours;
+    unsigned minutes;
+    unsigned seconds;
+    void Output() const
+    {
+         cout
+        << setw(2) << setfill('0') << hours << ":"
+        << setw(2) << setfill('0') << setfill('0') << minutes << ":"
+        << setw(2) << setfill('0') << seconds;
+    }
+    void Input()
+    {
+        cout << "Enter hours of spending:"; cin >> hours;
+        cout << "Enter minutes of spending:"; cin >> minutes;
+        cout << "Enter seconds of spending:"; cin >> seconds;
+    }
+};
+
 class MoneyStorage                  // Basic "Хранилища денег"
 {   
 protected:
@@ -104,7 +124,7 @@ struct Category
     double Entertainment;  // развлечения
     double Utilities;      // коммуналка
 
-    void Show_expense()
+    void Show_expense() const
     {
         cout
             << "Products = " << Products << endl
@@ -120,9 +140,21 @@ class Spending      // Расходы
 private:
     float money;
     Category category;
-
+    Date data;
+    Time time;
 public:
-
+     Spending();
+     void Output_Spending() const
+     {
+         cout << setw(5) << "__SPENDING__" << endl
+         << "Money: " << money << endl
+         << setw(5) << "_Category" << endl ;
+         category.Show_expense();
+         cout << setw(5) << "_Data" << endl;
+         data.Output();
+         cout << setw(5) << "_Time" << endl;
+         time.Output();
+     }
 };
 
 class Card : public MoneyStorage
