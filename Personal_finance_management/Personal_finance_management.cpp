@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -16,7 +17,19 @@ using namespace std;
 Наполнить эти классы полями и прототипами методов. Прислать в качестве выполненного ДЗ определения этих классов
 (пока можно ограничиться прототипами методов - тела методов можно пока не писать).
 */
-
+struct Date
+{
+    unsigned day;
+    unsigned month;
+    unsigned year;
+    void Output()const
+    {
+        cout
+        << setw(2) << setfill('0') << day << "/"
+        << setw(2) << setfill('0') << setfill('0') << month << "/"
+        << setw(2) << setfill('0') << year;
+    }
+};
 
 class MoneyStorage                  // Basic "Хранилища денег"
 {   
@@ -64,44 +77,13 @@ public:
 (пока можно ограничиться прототипами методов - тела методов можно пока не писать).
 */
 
-class Spending      // Расходы
+struct Category
 {
-private:
     double Products;       // продукты
     double Restaurants;    // рестораны
     double Medecine;       // медецина
     double Entertainment;  // развлечения
-    double Utilities;      // коммуналка  
-public:
-    Spending()
-    {
-        Products = 0.0;
-        Restaurants = 0.0;
-        Medecine = 0.0;
-        Entertainment = 0.0;
-        Utilities = 0.0;
-    }
-
-    void Set_Products(double Products_)
-    {
-        this->Products = Products_;
-    }
-    void Set_Restaurants(double Products_)
-    {
-        this->Restaurants = Products_;
-    }
-    void Set_Medecine(double Products_)
-    {
-        this->Medecine = Products_;
-    }
-    void Set_Entertainment(double Products_)
-    {
-        this->Entertainment = Products_;
-    }
-    void Set_Utilities(double Products_)
-    {
-        this->Utilities = Products_;
-    }
+    double Utilities;      // коммуналка
 
     void Show_expense()
     {
@@ -112,6 +94,15 @@ public:
             << "Entertainment = " << Entertainment << endl
             << "Utilities = " << Utilities << endl << endl;
     }
+};
+
+class Spending      // Расходы
+{
+private:
+    float money;
+    Category category;
+
+public:
 
 };
 
@@ -172,23 +163,19 @@ int main()
                 {
                 case 1:
                     cout << "Enter Products : "; cin >> price;
-                    Spend.Set_Products(price);
+
                     break;
                 case 2:
                     cout << "Enter Restaurants : "; cin >> price;
-                    Spend.Set_Restaurants(price);
                     break;
                 case 3:
                     cout << "Enter Medecine : "; cin >> price;
-                    Spend.Set_Medecine(price);
                     break;
                 case 4:
                     cout << "Enter Entertainment : "; cin >> price;
-                    Spend.Set_Entertainment(price);
                     break;
                 case 5:
                     cout << "Enter Utilities : "; cin >> price;
-                    Spend.Set_Utilities(price);
                     break;
                 case 6:
                     break;
