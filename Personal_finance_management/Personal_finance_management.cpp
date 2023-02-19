@@ -29,7 +29,26 @@ struct Date
         << setw(2) << setfill('0') << setfill('0') << month << "/"
         << setw(2) << setfill('0') << year;
     }
+    void Input()
+    {
+        cout << "Enter day of spending:"; cin >> day;
+        cout << "Enter month of spending:"; cin >> month;
+        cout << "Enter year of spending:"; cin >> year;
+    }
 };
+
+bool isLeap(int year)  // определение является ли высокостный год
+{
+if (year % 400 == 0)
+{
+    return true;
+}
+if (year % 4 == 0 && year != 0)
+{
+    return true;
+}
+    return false;
+}
 
 class MoneyStorage                  // Basic "Хранилища денег"
 {   
@@ -120,6 +139,9 @@ class Wallet : public MoneyStorage
 int main()
 {
     Spending Spend;
+    Date date;
+    date.Input();
+    date.Output();
 
     while (true)    // Menu
     {
@@ -186,7 +208,6 @@ int main()
             break;
         case 4:
             system("cls");
-            Spend.Show_expense();
             break;
         case 5:
             break;
