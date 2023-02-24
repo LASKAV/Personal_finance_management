@@ -102,11 +102,21 @@ public:
     }
     void Input()
     {
-        cout
-        << "Enter Bank name "<< bankName << endl
-        << "Enter ID:" << Num_storage << endl
-        << "Enter money " << Сurrent_Amount << endl
-        << "Enter credit limit " << creditLimit << endl;
+        string name_bank;
+        long num_stor;
+        double current_amout;
+        float credit_limit;
+
+        cout << "Enter Bank name "; cin >> name_bank;
+        cout << "Enter ID:"; cin >> num_stor;
+        cout << "Enter money "; cin >> current_amout;
+        cout << "Enter credit limit "; cin >> credit_limit;
+
+        this->bankName = name_bank;
+        this->Num_storage = num_stor;
+        this->Сurrent_Amount = current_amout;
+        this->creditLimit = credit_limit;
+
     }
     void Output()
     {
