@@ -27,11 +27,70 @@ private:
     Date data;
     Time time;
 public:
-     Spending();
+    Spending() = default;
+    void input()
+    {
+         cout << "Enter category : " << endl;
+         do {
+                short choice_expense;
+                Category price;
+                cout
+                    << "1. Products\n"
+                    << "2. Restaurants\n"
+                    << "3. Medecine\n"
+                    << "4. Entertainment\n"
+                    << "5. Utilities\n"
+                    << "6. Exit\n"
+                    << "Enter your choice: ";
+                cin >> choice_expense;
+                if (choice_expense == 6)
+                {
+                    break;
+                }
+                switch (choice_expense) {
+                    case 1:
+                        cout << "Enter Products : ";
+                        cin >> price.Products;
+                        category.Products += price.Products;
+                        break;
+                    case 2:
+                        cout << "Enter Restaurants : ";
+                        cin >> price.Restaurants;
+                        category.Restaurants += price.Restaurants;
+                        break;
+                    case 3:
+                        cout << "Enter Medecine : ";
+                        cin >> price.Medecine;
+                        category.Medecine += price.Medecine;
+                        break;
+                    case 4:
+                        cout << "Enter Entertainment : ";
+                        cin >> price.Entertainment;
+                        category.Entertainment += price.Entertainment;
+                        break;
+                    case 5:
+                        cout << "Enter Utilities : ";
+                        cin >> price.Utilities;
+                        category.Utilities += price.Utilities;
+                        break;
+                    case 6:
+                        break;
+                                default:
+                    cout << "Invalid choice!\n";
+                }
+            } while (true);
+        this->money += category.Products;
+        this->money += category.Restaurants;
+        this->money += category.Medecine;
+        this->money += category.Entertainment;
+        this->money += category.Utilities;
+        data.Input();
+        time.Input();
+    }
      void Output_Spending() const
      {
          cout << setw(5) << "__SPENDING__" << endl
-         << "Money: " << money << endl
+         << "Money: " << money << "$" << endl
          << setw(5) << "_Category" << endl ;
          category.Show_expense();
          cout << setw(5) << "_Data" << endl;
@@ -40,9 +99,7 @@ public:
          time.Output();
      }
 };
-
-class MoneyStorage                  // Basic "Хранилища денег"
-{
+class MoneyStorage{                  // Basic "Хранилища денег"
 protected:
     double Сurrent_Amount;          // Текущее количество денег
     long Num_storage;               // Номер Хранилища
@@ -70,8 +127,9 @@ public:
         return this->Num_storage;
     }
 
-    void TopUp(double sum_add)  // Пополнение
+    void TopUp()  // Пополнение
     {
+        double sum_add;
         cout << "__Replenishment__" << endl
         << "Enter sum :"; cin >> sum_add;
         this->Сurrent_Amount += sum_add;
@@ -81,7 +139,6 @@ public:
         cout << "Destructor MoneyStorage" << endl;
     }
 };
-
 class Card : public MoneyStorage
 {
     string bankName;
@@ -127,7 +184,6 @@ public:
                 << "Credit limit " << creditLimit << endl;
     }
 };
-
 class Wallet : public MoneyStorage
 {
 public:
@@ -171,83 +227,44 @@ public:
 
 int main()
 {
+    Spending test_Spend;
+    test_Spend.input();
+    test_Spend.Output_Spending();
 
-
-    while (true)    // Menu
-    {
-        short choice;
-        cout << "Welcome to the personal finance management system!\n";   
-        cout << "1. Replenish wallet\n";            // Пополнить кошелек
-        cout << "2. Replenish card\n";              // Пополнить карту
-        cout << "3. Enter expense\n";               // Ввести расход
-        cout << "4. Generate report\n";             // Сформировать отчет
-        cout << "5. Generate rating\n";             // Сгенерировать рейтинг
-        cout << "6. Save reports and ratings\n";    // Сохранить отчеты и рейтинги
-        cout << "7. Exit\n";                        // Выход
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch (choice) {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            do{
-                short choice_expense;
-                double price = 0.0;
-                cout
-                    << "1. Products\n"
-                    << "2. Restaurants\n"
-                    << "3. Medecine\n"
-                    << "4. Entertainment\n"
-                    << "5. Utilities\n"
-                    << "6. Exit\n"
-                    << "Enter your choice: ";
-                cin >> choice_expense;
-                if (price != 0.0) price = 0.0;
-                if (choice_expense == 6)
-                {
-                    system("cls");
-                    break;
-                }
-                switch (choice_expense)
-                {
-                case 1:
-                    cout << "Enter Products : "; cin >> price;
-                    break;
-                case 2:
-                    cout << "Enter Restaurants : "; cin >> price;
-                    break;
-                case 3:
-                    cout << "Enter Medecine : "; cin >> price;
-                    break;
-                case 4:
-                    cout << "Enter Entertainment : "; cin >> price;
-                    break;
-                case 5:
-                    cout << "Enter Utilities : "; cin >> price;
-                    break;
-                case 6:
-                    break;
-                default:
-                    cout << "Invalid choice!\n";
-                }
-            } while (true);
-            break;
-        case 4:
-            system("cls");
-            break;
-        case 5:
-            break;
-        case 6:
-            break;
-        case 7:
-            return 0;
-        default:
-            cout << "Invalid choice!\n";
-        }
-    }
+//while (true)    // Menu
+//{
+//    short choice;
+//    cout << "Welcome to the personal finance management system!\n";
+//    cout << "1. Replenish wallet\n";            // Пополнить кошелек
+//    cout << "2. Replenish card\n";              // Пополнить карту
+//    cout << "3. Enter expense\n";               // Ввести расход
+//    cout << "4. Generate report\n";             // Сформировать отчет
+//    cout << "5. Generate rating\n";             // Сгенерировать рейтинг
+//    cout << "6. Save reports and ratings\n";    // Сохранить отчеты и рейтинги
+//    cout << "7. Exit\n";                        // Выход
+//    cout << "Enter your choice: ";
+//    cin >> choice;
+//    switch (choice) {
+//    case 1:
+//        Storage_Wallet->TopUp();
+//        break;
+//    case 2:
+//        Storage_Card->TopUp();
+//        break;
+//    case 3:
+//        break;
+//    case 4:
+//        break;
+//    case 5:
+//        break;
+//    case 6:
+//        break;
+//    case 7:
+//        return 0;
+//    default:
+//        cout << "Invalid choice!\n";
+//    }
+//}
 
     return 0;
 }

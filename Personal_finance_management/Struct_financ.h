@@ -5,11 +5,11 @@ using namespace std;
 
 struct Category
 {
-    double Products;       // продукты
-    double Restaurants;    // рестораны
-    double Medecine;       // медецина
-    double Entertainment;  // развлечения
-    double Utilities;      // коммуналка
+    double Products = 0;       // продукты
+    double Restaurants = 0;    // рестораны
+    double Medecine = 0;       // медецина
+    double Entertainment = 0;  // развлечения
+    double Utilities = 0;      // коммуналка
 
     void Show_expense() const
     {
@@ -22,7 +22,6 @@ struct Category
     }
     void Input_categore()
     {
-
            cout << "Products = "; cin >> Products;
            cout << "Restaurants = "; cin >> Restaurants;
            cout << "Medecine = "; cin >> Medecine;
@@ -50,8 +49,6 @@ struct Date
         cout << "Enter year of spending:"; cin >> year;
     }
 };
-
-
 
 struct  Time
 {
