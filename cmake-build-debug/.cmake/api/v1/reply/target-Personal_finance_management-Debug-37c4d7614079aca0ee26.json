@@ -92,8 +92,7 @@
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				1,
-				2
+				1
 			]
 		}
 	],
@@ -108,11 +107,6 @@
 		{
 			"backtrace" : 1,
 			"path" : "Personal_finance_management/Struct_financ.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "Personal_finance_management/Class_finance.h",
 			"sourceGroupIndex" : 1
 		}
 	],

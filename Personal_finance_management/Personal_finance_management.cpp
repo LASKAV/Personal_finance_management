@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <iomanip>
-
+#include <set>
+#include "Struct_financ.h"
 using namespace std;
 
 /*
@@ -17,123 +18,6 @@ using namespace std;
 Наполнить эти классы полями и прототипами методов. Прислать в качестве выполненного ДЗ определения этих классов
 (пока можно ограничиться прототипами методов - тела методов можно пока не писать).
 */
-struct Date
-{
-    unsigned day;
-    unsigned month;
-    unsigned year;
-    void Output()const
-    {
-        cout
-        << setw(2) << setfill('0') << day << "/"
-        << setw(2) << setfill('0') << setfill('0') << month << "/"
-        << setw(2) << setfill('0') << year;
-    }
-    void Input()
-    {
-        cout << "Enter day of spending:"; cin >> day;
-        cout << "Enter month of spending:"; cin >> month;
-        cout << "Enter year of spending:"; cin >> year;
-    }
-};
-
-bool isLeap(int year)  // определение является ли высокостный год
-{
-if (year % 400 == 0)
-{
-    return true;
-}
-if (year % 4 == 0 && year != 0)
-{
-    return true;
-}
-    return false;
-}
-
-struct  Time
-{
-    unsigned hours;
-    unsigned minutes;
-    unsigned seconds;
-    void Output() const
-    {
-         cout
-        << setw(2) << setfill('0') << hours << ":"
-        << setw(2) << setfill('0') << setfill('0') << minutes << ":"
-        << setw(2) << setfill('0') << seconds;
-    }
-    void Input()
-    {
-        cout << "Enter hours of spending:"; cin >> hours;
-        cout << "Enter minutes of spending:"; cin >> minutes;
-        cout << "Enter seconds of spending:"; cin >> seconds;
-    }
-};
-
-class MoneyStorage                  // Basic "Хранилища денег"
-{   
-protected:
-    double Сurrent_Amount;          // Текущее количество денег
-
-    short Num_storage;              // Номер Хранилища
-public:
-    MoneyStorage()                  // Конструктор без параметров                
-    {
-        Сurrent_Amount = 00.00;
-        Num_storage = 0;
-    }
-    MoneyStorage(double Сurrent_Amount, short Num_storage)     // Конструктор с одним параметром
-    {
-        this->Сurrent_Amount = Сurrent_Amount;
-        this->Num_storage = Num_storage;
-    }
-    double Get_Сurrent_Amount()
-    {
-        return this->Сurrent_Amount;
-    }
-    short Get_Num_storage()
-    {
-        return this->Num_storage;
-    }
-    double Show_MoneyStorage()
-    {
-        cout << " Сurrent_Amount = " << this->Сurrent_Amount << endl;
-    
-        return this->Сurrent_Amount;
-    }
-    ~MoneyStorage()
-    {
-        cout << "Destructor MoneyStorage" << endl;
-    }
-    virtual void Add_Money(double Money) = 0;
-    virtual void Subtract_Money(double Money) = 0;
-};
-
-/*
-09.02
-Создать класс для затрат. Назвать этот класс Spending.
-Наполнить этот класс полями и прототипами методов. Прислать в качестве выполненного ДЗ определение этого класса
-(пока можно ограничиться прототипами методов - тела методов можно пока не писать).
-*/
-
-struct Category
-{
-    double Products;       // продукты
-    double Restaurants;    // рестораны
-    double Medecine;       // медецина
-    double Entertainment;  // развлечения
-    double Utilities;      // коммуналка
-
-    void Show_expense() const
-    {
-        cout
-            << "Products = " << Products << endl
-            << "Restaurants = " << Restaurants << endl
-            << "Medecine = " << Medecine << endl
-            << "Entertainment = " << Entertainment << endl
-            << "Utilities = " << Utilities << endl << endl;
-    }
-};
 
 class Spending      // Расходы
 {
@@ -157,23 +41,127 @@ public:
      }
 };
 
+class MoneyStorage                  // Basic "Хранилища денег"
+{
+protected:
+    double Сurrent_Amount;          // Текущее количество денег
+    long Num_storage;               // Номер Хранилища
+    float creditLimit;              // Кредитный лимит
+//    multiset<Spending> spendings;
+public:
+    MoneyStorage()                  // Конструктор без параметров
+    {
+        Сurrent_Amount = 00.00;
+        Num_storage = 0;
+        creditLimit = 0;
+    }
+    MoneyStorage(double Сurrent_Amount, long Num_storage, float Credit_limit)
+    {
+        this->Сurrent_Amount = Сurrent_Amount;
+        this->Num_storage = Num_storage;
+        this->creditLimit = Credit_limit;
+    }
+    double Get_Сurrent_Amount()
+    {
+        return this->Сurrent_Amount;
+    }
+    short Get_Num_storage()
+    {
+        return this->Num_storage;
+    }
+
+    void TopUp(double sum_add)  // Пополнение
+    {
+        cout << "__Replenishment__" << endl
+        << "Enter sum :"; cin >> sum_add;
+        this->Сurrent_Amount += sum_add;
+    }
+    ~MoneyStorage()
+    {
+        cout << "Destructor MoneyStorage" << endl;
+    }
+};
+
 class Card : public MoneyStorage
 {
-
+    string bankName;
+public:
+    Card() : MoneyStorage()
+    {
+        bankName = "";
+        Num_storage = 0;
+        Сurrent_Amount = 0;
+        creditLimit = 0;
+    }
+    Card(string name_bank ,long num_stor, double current_amout,float credit_limit)
+    {
+        this->bankName = name_bank;
+        this->Num_storage = num_stor;
+        this->Сurrent_Amount = current_amout;
+        this->creditLimit = credit_limit;
+    }
+    void Input()
+    {
+        cout
+        << "Enter Bank name "<< bankName << endl
+        << "Enter ID:" << Num_storage << endl
+        << "Enter money " << Сurrent_Amount << endl
+        << "Enter credit limit " << creditLimit << endl;
+    }
+    void Output()
+    {
+        cout
+                << "__" << bankName << "__" << endl
+                << "ID:" << Num_storage << endl
+                << "Money " << Сurrent_Amount << endl
+                << "Credit limit " << creditLimit << endl;
+    }
 };
 
 class Wallet : public MoneyStorage
 {
+public:
+    Wallet() : MoneyStorage()
+    {
+        Num_storage = 0;
+        Сurrent_Amount = 0;
+        creditLimit = 0;
+    }
+    Wallet(int id,long num_stor, double current_amout,float credit_limit)
+    {
+        this->Num_storage = num_stor;
+        this->Сurrent_Amount = current_amout;
+        this->creditLimit = credit_limit;
+    }
+    void Input()
+    {
 
+        long num_stor;
+        double current_amout;
+        float credit_limit;
+
+       cout << "Enter ID: "; cin >> num_stor ;
+       cout << "Enter money "; cin >> current_amout ;
+       cout << "Enter credit limit "; cin >> credit_limit ;
+
+        this->Num_storage = num_stor;
+        this->Сurrent_Amount = current_amout;
+        this->creditLimit = credit_limit;
+    }
+     void Output()
+    {
+        cout
+                << "__" << "Wallet" << "__" << endl
+                << "ID:" << Num_storage << endl
+                << "Money " << Сurrent_Amount << endl
+                << "Credit limit " << creditLimit << endl;
+    }
 };
 
 
 int main()
 {
-    Spending Spend;
-    Date date;
-    date.Input();
-    date.Output();
+
 
     while (true)    // Menu
     {
@@ -217,7 +205,6 @@ int main()
                 {
                 case 1:
                     cout << "Enter Products : "; cin >> price;
-
                     break;
                 case 2:
                     cout << "Enter Restaurants : "; cin >> price;
