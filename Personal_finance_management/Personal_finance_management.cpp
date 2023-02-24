@@ -4,8 +4,7 @@
 #include "Struct_financ.h"
 using namespace std;
 
-class Spending      // Расходы
-{
+class Spending{
 private:
     double money;
     Category category;
@@ -83,11 +82,15 @@ public:
          cout << setw(5) << "_Time" << endl;
          time.Output();
      }
+     bool operator<(const Spending temp) const
+	 {
+		return money > temp.money;
+	 }
      double Get_money() const { return this->money; }
      const Date GetDate() const { return data; }
 	 const Time GetTime() const { return time; }
 };
-class MoneyStorage : public Spending
+class MoneyStorage
         {                  // Basic "Хранилища денег"
 protected:
     double Сurrent_Amount;           // Текущее количество денег
@@ -153,10 +156,11 @@ public:
         double current_amout;
         float credit_limit;
 
-        cout << "Enter Bank name "; cin >> name_bank;
-        cout << "Enter ID:"; cin >> num_stor;
-        cout << "Enter money "; cin >> current_amout;
-        cout << "Enter credit limit "; cin >> credit_limit;
+        cout << "__Card__" << endl;
+        cout << "Enter Bank name: "; cin >> name_bank;
+        cout << "Enter ID: "; cin >> num_stor;
+        cout << "Enter money: "; cin >> current_amout;
+        cout << "Enter credit limit: "; cin >> credit_limit;
 
         this->bankName = name_bank;
         this->Num_storage = num_stor;
@@ -167,7 +171,7 @@ public:
     void OutPut()
     {
         cout << endl << "__" << bankName << "__" << endl
-        << "ID:" << Num_storage << endl
+        << "ID " << Num_storage << endl
         << "Money " << Сurrent_Amount << endl
         << "Credit limit " << creditLimit << endl;
     }
@@ -179,13 +183,11 @@ public:
     {
         Num_storage = 0;
         Сurrent_Amount = 0;
-        creditLimit = 0;
     }
-    Wallet(long num_stor, double current_amout,float credit_limit)
+    Wallet(long num_stor, double current_amout)
     {
         this->Num_storage = num_stor;
         this->Сurrent_Amount = current_amout;
-        this->creditLimit = credit_limit;
     }
     void Input()
     {
@@ -193,13 +195,12 @@ public:
         double current_amout;
         float credit_limit;
 
-       cout << "Enter ID: "; cin >> num_stor ;
-       cout << "Enter money "; cin >> current_amout ;
-       cout << "Enter credit limit "; cin >> credit_limit ;
+        cout << "__Wallet__" << endl;
+        cout << "Enter ID: "; cin >> num_stor ;
+        cout << "Enter money: "; cin >> current_amout ;
 
         this->Num_storage = num_stor;
         this->Сurrent_Amount = current_amout;
-        this->creditLimit = credit_limit;
     }
      void OutPut()
     {
@@ -214,10 +215,17 @@ int main()
 {
     MoneyStorage* OBJ_Card;
     MoneyStorage* OBJ_Wall;
+
     Spending OBJ_Spend;
 
-    OBJ_Card = new Card{"Monobank",1000,0,0};
-    OBJ_Wall = new Wallet{3123,1000,0};
+    Card test_C;
+    test_C.Input();
+
+    Wallet test_W;
+    test_W.Input();
+
+    OBJ_Card = new Card{test_C};
+    OBJ_Wall = new Wallet{test_W};
 
 while (true)    // Menu
 {

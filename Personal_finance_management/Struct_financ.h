@@ -83,8 +83,8 @@ if (year % 4 == 0 && year != 0)
     return false;
 }
 
-int diff_between_dates(Date begin_date, Date end_date) // функция, определяющая количество дней между 2-мя датами
-{                                                       // эта функция нужна для отображения дел за неделю
+int diff_between_dates(Date begin_date, Date end_date)   // функция, определяющая количество дней между 2-мя датами
+{                                                        // эта функция нужна для отображения дел за неделю
 	int day_begin = begin_date.day;
 	int month_begin = begin_date.month;
 	int year_begin = begin_date.year;
