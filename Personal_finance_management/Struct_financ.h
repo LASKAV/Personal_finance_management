@@ -20,6 +20,15 @@ struct Category
             << "Entertainment = " << Entertainment << endl
             << "Utilities = " << Utilities << endl << endl;
     }
+    void Input_categore()
+    {
+
+           cout << "Products = "; cin >> Products;
+           cout << "Restaurants = "; cin >> Restaurants;
+           cout << "Medecine = "; cin >> Medecine;
+           cout << "Entertainment = "; cin >> Entertainment;
+           cout << "Utilities = "; cin >> Utilities;
+    }
 };
 
 struct Date

@@ -47,7 +47,7 @@ protected:
     double Сurrent_Amount;          // Текущее количество денег
     long Num_storage;               // Номер Хранилища
     float creditLimit;              // Кредитный лимит
-//    multiset<Spending> spendings;
+    multiset<Spending> spendings;
 public:
     MoneyStorage()                  // Конструктор без параметров
     {
