@@ -7,13 +7,13 @@ using namespace std;
 class Spending      // Расходы
 {
 private:
-    float money;
+    double money;
     Category category;
     Date data;
     Time time;
 public:
     Spending() = default;
-    void input()
+  virtual void input_Spen()
     {
          cout << "Enter category : " << endl;
          do {
@@ -83,13 +83,16 @@ public:
          cout << setw(5) << "_Time" << endl;
          time.Output();
      }
+     double Get_money() const { return this->money; }
+     const Date GetDate() const { return data; }
+	 const Time GetTime() const { return time; }
 };
-class MoneyStorage{                  // Basic "Хранилища денег"
+class MoneyStorage : public Spending
+        {                  // Basic "Хранилища денег"
 protected:
-    double Сurrent_Amount;          // Текущее количество денег
-    long Num_storage;               // Номер Хранилища
-    float creditLimit;              // Кредитный лимит
-    multiset<Spending> spendings;
+    double Сurrent_Amount;           // Текущее количество денег
+    long Num_storage;                // Номер Хранилища
+    float creditLimit;               // Кредитный лимит
 public:
     MoneyStorage()                  // Конструктор без параметров
     {
@@ -111,7 +114,6 @@ public:
     {
         return this->Num_storage;
     }
-
     void TopUp()  // Пополнение
     {
         double sum_add;
@@ -123,6 +125,7 @@ public:
     {
         cout << "Destructor MoneyStorage" << endl;
     }
+    virtual void OutPut() = 0;
 };
 class Card : public MoneyStorage
 {
@@ -144,6 +147,7 @@ public:
     }
     void Input()
     {
+
         string name_bank;
         long num_stor;
         double current_amout;
@@ -160,13 +164,12 @@ public:
         this->creditLimit = credit_limit;
 
     }
-    void Output()
+    void OutPut()
     {
-        cout
-                << "__" << bankName << "__" << endl
-                << "ID:" << Num_storage << endl
-                << "Money " << Сurrent_Amount << endl
-                << "Credit limit " << creditLimit << endl;
+        cout << endl << "__" << bankName << "__" << endl
+        << "ID:" << Num_storage << endl
+        << "Money " << Сurrent_Amount << endl
+        << "Credit limit " << creditLimit << endl;
     }
 };
 class Wallet : public MoneyStorage
@@ -178,7 +181,7 @@ public:
         Сurrent_Amount = 0;
         creditLimit = 0;
     }
-    Wallet(int id,long num_stor, double current_amout,float credit_limit)
+    Wallet(long num_stor, double current_amout,float credit_limit)
     {
         this->Num_storage = num_stor;
         this->Сurrent_Amount = current_amout;
@@ -186,7 +189,6 @@ public:
     }
     void Input()
     {
-
         long num_stor;
         double current_amout;
         float credit_limit;
@@ -199,56 +201,62 @@ public:
         this->Сurrent_Amount = current_amout;
         this->creditLimit = credit_limit;
     }
-     void Output()
+     void OutPut()
     {
-        cout
-                << "__" << "Wallet" << "__" << endl
-                << "ID:" << Num_storage << endl
-                << "Money " << Сurrent_Amount << endl
-                << "Credit limit " << creditLimit << endl;
+        cout << endl << "__" << "Wallet" << "__" << endl
+        << "ID:" << Num_storage << endl
+        << "Money " << Сurrent_Amount << endl
+        << "Credit limit " << creditLimit << endl;
     }
 };
 
 int main()
 {
-    Spending test_Spend;
-    test_Spend.input();
-    test_Spend.Output_Spending();
+    MoneyStorage* OBJ_Card;
+    MoneyStorage* OBJ_Wall;
+    Spending OBJ_Spend;
 
-//while (true)    // Menu
-//{
-//    short choice;
-//    cout << "Welcome to the personal finance management system!\n";
-//    cout << "1. Replenish wallet\n";            // Пополнить кошелек
-//    cout << "2. Replenish card\n";              // Пополнить карту
-//    cout << "3. Enter expense\n";               // Ввести расход
-//    cout << "4. Generate report\n";             // Сформировать отчет
-//    cout << "5. Generate rating\n";             // Сгенерировать рейтинг
-//    cout << "6. Save reports and ratings\n";    // Сохранить отчеты и рейтинги
-//    cout << "7. Exit\n";                        // Выход
-//    cout << "Enter your choice: ";
-//    cin >> choice;
-//    switch (choice) {
-//    case 1:
-//        Storage_Wallet->TopUp();
-//        break;
-//    case 2:
-//        Storage_Card->TopUp();
-//        break;
-//    case 3:
-//        break;
-//    case 4:
-//        break;
-//    case 5:
-//        break;
-//    case 6:
-//        break;
-//    case 7:
-//        return 0;
-//    default:
-//        cout << "Invalid choice!\n";
-//    }
-//}
+    OBJ_Card = new Card{"Monobank",1000,0,0};
+    OBJ_Wall = new Wallet{3123,1000,0};
+
+while (true)    // Menu
+{
+    short choice;
+    cout << "\nWelcome to the personal finance management system!\n";
+    cout << "1. Replenish wallet\n";            // Пополнить кошелек
+    cout << "2. Replenish card\n";              // Пополнить карту
+    cout << "3. Enter expense\n";               // Ввести расход
+    cout << "4. Generate report\n";             // Сформировать отчет
+    cout << "5. Generate rating\n";             // Сгенерировать рейтинг
+    cout << "6. Save reports and ratings\n";    // Сохранить отчеты и рейтинги
+    cout << "7. Exit\n";                        // Выход
+    cout << "Enter your choice: ";
+    cin >> choice;
+    switch (choice) {
+    case 1:
+        OBJ_Wall->TopUp();
+        OBJ_Wall->OutPut();
+        break;
+    case 2:
+        OBJ_Card->TopUp();
+        OBJ_Card->OutPut();
+        break;
+    case 3:
+        OBJ_Spend.input_Spen();
+        break;
+    case 4:
+        OBJ_Spend.Output_Spending();
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    case 7:
+        return 0;
+    default:
+        cout << "Invalid choice!\n";
+    }
+}
 
     return 0;
 }
