@@ -44,9 +44,9 @@ struct Date
     }
     void Input()
     {
-        cout << "Enter day of spending:"; cin >> day;
-        cout << "Enter month of spending:"; cin >> month;
-        cout << "Enter year of spending:"; cin >> year;
+        cout << "Enter day of spending: "; cin >> day;
+        cout << "Enter month of spending: "; cin >> month;
+        cout << "Enter year of spending: "; cin >> year;
     }
 };
 
@@ -64,9 +64,9 @@ struct  Time
     }
     void Input()
     {
-        cout << "Enter hours of spending:"; cin >> hours;
-        cout << "Enter minutes of spending:"; cin >> minutes;
-        cout << "Enter seconds of spending:"; cin >> seconds;
+        cout << "Enter hours of spending: "; cin >> hours;
+        cout << "Enter minutes of spending: "; cin >> minutes;
+        cout << "Enter seconds of spending: "; cin >> seconds;
     }
 };
 
