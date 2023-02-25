@@ -12,7 +12,7 @@ private:
     Time time;
 public:
     Spending() = default;
-  virtual void input_Spen()
+    void input_Spen()
     {
          cout << "Enter category : " << endl;
          do {
@@ -113,9 +113,13 @@ public:
     {
         return this->Сurrent_Amount;
     }
-    short Get_Num_storage()
+    long Get_Num_storage()
     {
         return this->Num_storage;
+    }
+    void Spend_money(double temp_money)
+    {
+        this->Сurrent_Amount -= temp_money;
     }
     void TopUp()  // Пополнение
     {
@@ -129,6 +133,7 @@ public:
         cout << "Destructor MoneyStorage" << endl;
     }
     virtual void OutPut() = 0;
+    virtual void Input() = 0;
 };
 class Card : public MoneyStorage
 {
@@ -213,24 +218,20 @@ public:
 
 int main()
 {
-    MoneyStorage* OBJ_Card;
-    MoneyStorage* OBJ_Wall;
 
-    Spending OBJ_Spend;
+    int choice_сreation = 0;
+    MoneyStorage* OBJ_Card[11];
+    MoneyStorage* OBJ_Wall[11];
 
-    Card test_C;
-    test_C.Input();
+    short num_card = 0;
+    short num_wall = 0;
 
-    Wallet test_W;
-    test_W.Input();
-
-    OBJ_Card = new Card{test_C};
-    OBJ_Wall = new Wallet{test_W};
-
-while (true)    // Menu
+do
 {
     short choice;
     cout << "\nWelcome to the personal finance management system!\n";
+    cout << "1. Card creation\n";               // Создание карты
+    cout << "2. Wall creation\n";               // Создание кошелька
     cout << "1. Replenish wallet\n";            // Пополнить кошелек
     cout << "2. Replenish card\n";              // Пополнить карту
     cout << "3. Enter expense\n";               // Ввести расход
@@ -242,29 +243,132 @@ while (true)    // Menu
     cin >> choice;
     switch (choice) {
     case 1:
-        OBJ_Wall->TopUp();
-        OBJ_Wall->OutPut();
-        break;
+  while (true)
+  {
+        cout << "Menu\n";
+        cout << "1. Card\n";
+        cout << "2. Show all cards\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice_сreation;
+        if (choice_сreation == 3)
+        {
+            break;
+        }
+        switch (choice_сreation)
+        {
+            case 1:
+                num_card += 1;
+                cout << "num =" << num_card << endl;
+                OBJ_Card[num_card] = new Card;
+                OBJ_Card[num_card]->Input();
+            break;
+            case 2:
+                cout << "num =" << num_card << endl;
+                for (int i = 1; i < num_card + 1; i++)
+                {
+                    cout << "Card #" << i << ' '; OBJ_Card[i]->OutPut(); cout << endl;
+                }
+
+                break;
+        default: cout << "Invalid choice\n";
+            break;
+        }
+    }
+  break;
     case 2:
-        OBJ_Card->TopUp();
-        OBJ_Card->OutPut();
-        break;
-    case 3:
-        OBJ_Spend.input_Spen();
-        break;
-    case 4:
-        OBJ_Spend.Output_Spending();
-        break;
-    case 5:
-        break;
-    case 6:
-        break;
-    case 7:
+   while (true)
+  {
+        cout << "Menu\n";
+        cout << "1. Wall\n";
+        cout << "2. Show all wall\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice_сreation;
+        if (choice_сreation == 3)
+        {
+            break;
+        }
+        switch (choice_сreation)
+        {
+            case 1:
+                num_wall += 1;
+                cout << "num =" << num_wall << endl;
+                OBJ_Wall[num_wall] = new Wallet;
+                OBJ_Wall[num_wall]->Input();
+            break;
+            case 2:
+                cout << "num =" << num_wall << endl;
+                for (int i = 1; i < num_wall + 1; i++)
+                {
+                    cout << "Wall #" << i << ' '; OBJ_Wall[i]->OutPut(); cout << endl;
+                }
+                break;
+        default: cout << "Invalid choice\n";
+            break;
+        }
+    }
+    break;
+
+//      case 3:
+//          do {
+//              short choice_soend;
+//              double meny_spend = 0;
+//              cout << "__Spending__" << endl;
+//              cout
+//              << "1. Card" << endl
+//              << "2. Wall" << endl
+//              << "3. Exit" << endl;
+//              cout << "Enter your choice: ";
+//              cin >> choice_soend;
+//              if (choice_soend == 3)
+//              {
+//                  break;
+//              }
+//              switch (choice_soend) {
+//                  case 1:
+//                      OBJ_Spend.input_Spen();
+//                      if (meny_spend != 0)
+//                      {
+//                          meny_spend = 0;
+//                      }
+//                      meny_spend = OBJ_Spend.Get_money();
+//                      OBJ_Card->Spend_money(meny_spend);
+//                      OBJ_Card->OutPut();
+//                      break;
+//                  case 2:
+//                      OBJ_Spend.input_Spen();
+//                      if (meny_spend != 0)
+//                      {
+//                          meny_spend = 0;
+//                      }
+//                      meny_spend = OBJ_Spend.Get_money();
+//                      OBJ_Wall->Spend_money(meny_spend);
+//                      OBJ_Wall->OutPut();
+//                      break;
+//                  case 3:
+//                      cout << "Exit spending" << endl;
+//                      break;
+//                  default:
+//                      cout << "Invalid choice!\n";
+//              }
+//          } while (true);
+//      break;
+//  case 4:
+//      OBJ_Wall->OutPut();
+//      OBJ_Card->OutPut();
+//      OBJ_Spend.Output_Spending();
+//      break;
+//  case 5:
+//      break;
+//  case 6:
+//      break;
+  case 7:
         return 0;
     default:
         cout << "Invalid choice!\n";
     }
-}
+} while (true);
 
     return 0;
 }
