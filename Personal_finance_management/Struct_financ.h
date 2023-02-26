@@ -18,7 +18,7 @@ struct Category
             << "Restaurants = " << Restaurants << endl
             << "Medecine = " << Medecine << endl
             << "Entertainment = " << Entertainment << endl
-            << "Utilities = " << Utilities << endl << endl;
+            << "Utilities = " << Utilities << endl;
     }
     void Input_categore()
     {
