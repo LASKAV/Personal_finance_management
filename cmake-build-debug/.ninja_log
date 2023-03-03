@@ -1,7 +1,5 @@
 # ninja log v5
-1	56	1677881179714995492	build.ninja	679d50c72332b85d
-3	644	1677881148809415765	CMakeFiles/Personal_finance_management.dir/Personal_finance_management/Personal_finance_management.cpp.o	6b0fa3e7c37a7bb7
-644	691	1677881148859583739	Personal_finance_management	ece7ad130ac06e9a
-1	51	1677881179714995492	build.ninja	679d50c72332b85d
-3	704	1677881304779897265	CMakeFiles/Personal_finance_management.dir/Personal_finance_management/Personal_finance_management.cpp.o	6b0fa3e7c37a7bb7
-705	762	1677881304839873297	Personal_finance_management	ece7ad130ac06e9a
+1	53	1677883289566654337	build.ninja	679d50c72332b85d
+3	613	1677883275461071372	CMakeFiles/Personal_finance_management.dir/Personal_finance_management/Personal_finance_management.cpp.o	6b0fa3e7c37a7bb7
+613	656	1677883275506932941	Personal_finance_management	ece7ad130ac06e9a
+0	46	1677883289566654337	build.ninja	679d50c72332b85d
