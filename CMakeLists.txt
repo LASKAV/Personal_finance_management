@@ -4,4 +4,4 @@ project(Personal_finance_management)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(Personal_finance_management
-        Personal_finance_management/Personal_finance_management.cpp Personal_finance_management/Struct_financ.h)
+        Personal_finance_management/Personal_finance_management.cpp)
