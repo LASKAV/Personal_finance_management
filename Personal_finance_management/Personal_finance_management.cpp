@@ -325,9 +325,9 @@ public:
 };
 
 void line();
-void Show_day_report(multiset <Spending> report_spend_Wall,multiset <Spending> report_spend_Card, int size);
-void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card, int size);
-void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>report_spend_Card, int size);
+void Show_day_report(multiset <Spending> report_spend_Wall,multiset <Spending> report_spend_Card);
+void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card);
+void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>report_spend_Card);
 void Show_week_rating(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card);
 void Monthly_report(multiset <Spending> report_spend_Wall,multiset <Spending> report_spend_Card);
 void Show_week_categories(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card);
@@ -345,7 +345,6 @@ int main()
      short choice_ = 0;
      short num_spend_card = 0;
      short num_spend_wall = 0;
-     int size = 0;
      MoneyStorage* OBJ_Card[11];
 	 MoneyStorage* OBJ_Wall[11];
 
@@ -503,16 +502,13 @@ int main()
          } while (true);
             break;
      case 4:  // Затраты за день
-         size = num_spend_card + num_spend_wall;
-         Show_day_report(report_spend_Wall,report_spend_Card,size);
+         Show_day_report(report_spend_Wall,report_spend_Card);
         break;
      case 5:  // Затраты за неделю
-        size = num_spend_card + num_spend_wall;
-        Show_week_report(report_spend_Wall,report_spend_Card,size);
+        Show_week_report(report_spend_Wall,report_spend_Card);
          break;
      case 6:  // Затраты за месяц
-            size = num_spend_card + num_spend_wall;
-            Show_month_report(report_spend_Wall,report_spend_Card,size);
+            Show_month_report(report_spend_Wall,report_spend_Card);
          break;
      case 7:  // ТОП-3 затрат за неделю
             Show_week_rating(report_spend_Wall,report_spend_Card);
@@ -618,7 +614,7 @@ int diff_between_dates(Date begin_date, Date end_date){
 	int difference = alldays_end - alldays_begin + 365 * (year_end - year_begin) + leap_summ;
 	return difference;
 }
-void Show_day_report(multiset <Spending> report_spend_Wall,multiset <Spending> report_spend_Card, int size){     // Затраты за день
+void Show_day_report(multiset <Spending> report_spend_Wall,multiset <Spending> report_spend_Card){     // Затраты за день
    Date day;
    day.Input();
    cout << "Show day report " << endl;
@@ -679,7 +675,7 @@ void Show_day_report(multiset <Spending> report_spend_Wall,multiset <Spending> r
         }
     }
 }
-void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card, int size)
+void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card)
 {
     cout << "Weekly expense report\n";
     Date start_date;
@@ -709,11 +705,9 @@ void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> r
 
     multiset<Spending>::iterator it;
     it = rating.begin();
-    if (rating.size() < 3) size = rating.size();
-    for (int i = 0; i < size; i++)
+    for (; it != rating.end(); ++it)
     {
-        (*it).Output_Spending();
-        it++;
+        it->Output_Spending();
     }
     cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
     bool yes;
@@ -725,7 +719,7 @@ void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> r
     if (out.is_open())
     {
         out << "Weekly expense report" << endl;
-        for (int i = 0; i < size; i++)
+        for (it = rating.begin(); it != rating.end(); ++it)
         {
             out << "Amount of money spending: " << it->Get_money() << "$" << endl
                 << "Products : " << it->GetCategory().Products << "$" << endl
@@ -744,7 +738,7 @@ void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> r
         }
     }
 }
-void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>report_spend_Card, int size){
+void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>report_spend_Card){
     Date  month_date;
     month_date.Input();
     cout << "Monthly expense report\n";
@@ -766,11 +760,9 @@ void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>re
     }
     multiset<Spending>::iterator it;
     it = rating.begin();
-    if (rating.size() < 3) size = rating.size();
-    for (int i = 0; i < size; i++)
+    for (; it != rating.end(); ++it)
     {
-        (*it).Output_Spending();
-        it++;
+        it->Output_Spending();
     }
 
     cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
@@ -783,7 +775,7 @@ void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>re
     if (out.is_open())
     {
         out << "Monthly expense report" << endl;
-        for (int i = 0; i < size; i++)
+        for (it = rating.begin(); it != rating.end(); ++it)
         {
             out << "Amount of money spending: " << it->Get_money() << "$" << endl
                 << "Products : " << it->GetCategory().Products << "$" << endl
