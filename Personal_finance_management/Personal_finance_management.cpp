@@ -134,6 +134,8 @@ int main()
          do {
              short choice_soend;
              double meny_spend = 0;
+             multiset<Spending>::iterator it;
+             multiset<Spending>::iterator it2;
              cout << "\n__Spending__" << endl;
              cout
              << "1. Card" << endl
@@ -143,53 +145,54 @@ int main()
              cout << "Enter your choice: ";
              cin >> choice_soend;
              if (choice_soend == 4) break;
-             switch (choice_soend) {
+             switch (choice_soend)
+             {
                  case 1:
-                      for (int i = 1; i < num_card + 1; i++)
-                        {
-                            cout << "Card #" << i << ' '; OBJ_Card[i]->OutPut(); cout << endl;
-                        }
-                       cout << "Enter card number : "; cin >> choice_;
-                       OBJ_Card[choice_]->OutPut();
-                       spendings_Card[choice_] = new Spending;
-                       spendings_Card[choice_]->input_Spen();
-                       meny_spend += spendings_Card[choice_]->Get_money();
-                       OBJ_Card[choice_]->Spend_money(meny_spend);
-                       spendings_Card[choice_]->Output_Spending();
-                       report_spend_Card.insert(*spendings_Card[choice_]);
-                       num_spend_card+=choice_;
+                     for (int i = 1; i < num_card + 1; i++) {
+                         cout << "Card #" << i << ' ';
+                         OBJ_Card[i]->OutPut();
+                         cout << endl;
+                     }
+                     cout << "Enter card number : ";
+                     cin >> choice_;
+                     OBJ_Card[choice_]->OutPut();
+                     spendings_Card[choice_] = new Spending;
+                     spendings_Card[choice_]->input_Spen();
+                     meny_spend += spendings_Card[choice_]->Get_money();
+                     OBJ_Card[choice_]->Spend_money(meny_spend);
+                     spendings_Card[choice_]->Output_Spending();
+                     report_spend_Card.insert(*spendings_Card[choice_]);
+                     num_spend_card += choice_;
                      break;
                  case 2:
-                         for (int i = 1; i < num_wall + 1; i++)
-                        {
-                            cout << "Wall #" << i << ' '; OBJ_Wall[i]->OutPut(); cout << endl;
-                        }
-                       cout << "Enter wall number : "; cin >> choice_;
-                       OBJ_Wall[choice_]->OutPut();
-                       spendings_Wall[choice_] = new Spending;
-                       spendings_Wall[choice_]->input_Spen();
-                       meny_spend += spendings_Wall[choice_]->Get_money();
-                       OBJ_Wall[choice_]->Spend_money(meny_spend);
-                       spendings_Wall[choice_]->Output_Spending();
-                       report_spend_Wall.insert(*spendings_Wall[choice_]);
-                       num_spend_wall+=choice_;
+                     for (int i = 1; i < num_wall + 1; i++) {
+                         cout << "Wall #" << i << ' ';
+                         OBJ_Wall[i]->OutPut();
+                         cout << endl;
+                     }
+                     cout << "Enter wall number : ";
+                     cin >> choice_;
+                     OBJ_Wall[choice_]->OutPut();
+                     spendings_Wall[choice_] = new Spending;
+                     spendings_Wall[choice_]->input_Spen();
+                     meny_spend += spendings_Wall[choice_]->Get_money();
+                     OBJ_Wall[choice_]->Spend_money(meny_spend);
+                     spendings_Wall[choice_]->Output_Spending();
+                     report_spend_Wall.insert(*spendings_Wall[choice_]);
+                     num_spend_wall += choice_;
                      break;
                  case 3:
-                     line();
-                     for (int i = 0; i < num_spend_card; ++i)
-                     {
-                        cout << endl << "Card #" << i << " spend"; spendings_Card[i]->Output_Spending();
+                     it = report_spend_Wall.begin();
+                     for (; it != report_spend_Wall.end(); ++it) {
+                         it->Output_Spending();
                      }
-                     line();
-                     for (int i = 0; i < num_spend_wall; ++i)
-                     {
-                        cout << endl << "Wall #" << i << " spend"; spendings_Wall[i]->Output_Spending();
+                     it2 = report_spend_Card.begin();
+                     for (; it2 != report_spend_Card.end(); ++it2) {
+                         it2->Output_Spending();
                      }
-                     line();
                      break;
                  default:
                      cout << "Invalid choice!\n";
-                     break;
              }
          } while (true);
             break;

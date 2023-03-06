@@ -85,6 +85,7 @@ public:
     }
      void Output_Spending() const
      {
+         cout << endl;
          cout << "\n" << setw(5) << "__SPENDING__" << endl
          << "Money: " << money << "$" << endl
          << setw(5) << "_Category" << endl ;
@@ -93,6 +94,7 @@ public:
          data.Output();
          cout << "\n" << setw(5) << "_Time" << endl;
          time.Output();
+         cout << endl;
      }
      bool operator<(const Spending temp) const
 	 {
