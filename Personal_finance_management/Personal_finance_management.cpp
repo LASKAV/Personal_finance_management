@@ -35,6 +35,8 @@ int main()
      int choice_сreation = 0;
      int num_card = 0;
      int num_wall = 0;
+     short num_spend_card = 0;
+     short num_spend_wall = 0;
      short choice_ = 0;
      MoneyStorage* OBJ_Card[11];
 	 MoneyStorage* OBJ_Wall[11];
@@ -132,8 +134,6 @@ int main()
          do {
              short choice_soend;
              double meny_spend = 0;
-             short num_spend_card = 0;
-             short num_spend_wall = 0;
              cout << "\n__Spending__" << endl;
              cout
              << "1. Card" << endl
@@ -150,7 +150,6 @@ int main()
                             cout << "Card #" << i << ' '; OBJ_Card[i]->OutPut(); cout << endl;
                         }
                        cout << "Enter card number : "; cin >> choice_;
-                       num_spend_card += choice_;
                        OBJ_Card[choice_]->OutPut();
                        spendings_Card[choice_] = new Spending;
                        spendings_Card[choice_]->input_Spen();
@@ -158,14 +157,14 @@ int main()
                        OBJ_Card[choice_]->Spend_money(meny_spend);
                        spendings_Card[choice_]->Output_Spending();
                        report_spend_Card.insert(*spendings_Card[choice_]);
+                       num_spend_card+=choice_;
                      break;
                  case 2:
                          for (int i = 1; i < num_wall + 1; i++)
                         {
                             cout << "Wall #" << i << ' '; OBJ_Wall[i]->OutPut(); cout << endl;
                         }
-                       cout << "Enter card number : "; cin >> choice_;
-                       num_spend_wall += choice_;
+                       cout << "Enter wall number : "; cin >> choice_;
                        OBJ_Wall[choice_]->OutPut();
                        spendings_Wall[choice_] = new Spending;
                        spendings_Wall[choice_]->input_Spen();
@@ -173,21 +172,22 @@ int main()
                        OBJ_Wall[choice_]->Spend_money(meny_spend);
                        spendings_Wall[choice_]->Output_Spending();
                        report_spend_Wall.insert(*spendings_Wall[choice_]);
+                       num_spend_wall+=choice_;
                      break;
                  case 3:
                      line();
-                     for (int i = 1; i < num_card + 1; ++i)
+                     for (int i = 0; i < num_spend_card; ++i)
                      {
-                        cout << "Card #" << i << " spend"; spendings_Card[i]->Output_Spending();
+                        cout << endl << "Card #" << i << " spend"; spendings_Card[i]->Output_Spending();
                      }
                      line();
-                     for (int i = 1; i < num_wall + 1; ++i)
+                     for (int i = 0; i < num_spend_wall; ++i)
                      {
-                        cout << "Wall #" << i << " spend"; spendings_Wall[i]->Output_Spending();
+                        cout << endl << "Wall #" << i << " spend"; spendings_Wall[i]->Output_Spending();
                      }
                      line();
                      break;
-                     default:
+                 default:
                      cout << "Invalid choice!\n";
                      break;
              }
@@ -342,7 +342,7 @@ void Show_day_report(multiset <Spending> report_spend_Wall,multiset <Spending> r
         it->Output_Spending();
     }
 
-    cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
+    cout << "\nDo you want to save the rating in the file? (yes - 1, no - 0)\n";
     bool yes;
     cin >> yes;
     if (!yes) return;
@@ -432,6 +432,7 @@ void Show_week_report(multiset<Spending> report_spend_Wall, multiset<Spending> r
                 << it->GetTime().hours << ':' << setw(2) << setfill('0')
                 << it->GetTime().minutes << ':' << setw(2) << setfill('0')
                 << it->GetTime().seconds << "\n\n";
+            it++;
         }
     }
 }
@@ -462,7 +463,7 @@ void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>re
         it->Output_Spending();
     }
 
-    cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
+    cout << "\nDo you want to save the rating in the file? (yes - 1, no - 0)\n";
     bool yes;
     cin >> yes;
     if (!yes) return;
@@ -488,47 +489,48 @@ void Show_month_report(multiset<Spending> report_spend_Wall,multiset<Spending>re
                 << it->GetTime().hours << ':' << setw(2) << setfill('0')
                 << it->GetTime().minutes << ':' << setw(2) << setfill('0')
                 << it->GetTime().seconds << "\n\n";
+            it++;
         }
     }
 }
 void Show_week_rating(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card)
 {
     cout << "Weekly top 3 expense report\n";
-    time_t t = time(nullptr);
-    tm* now = localtime(&t);
-
+    Date start_date;
+    start_date.Input();
+    Date end_date;
+    end_date.Input();
     multiset<Spending> rating;
     for (auto elemSt : report_spend_Wall)
     {
-        if (elemSt.GetDate().month == (now->tm_mon + 1) && elemSt.GetDate().year == (now->tm_year + 1900))
+        // Проверяем, что дата трат находится в интервале от start_date до end_date
+        if (elemSt.GetDate().year >= start_date.year && elemSt.GetDate().year <= end_date.year &&
+            elemSt.GetDate().month >= start_date.month && elemSt.GetDate().month <= end_date.month &&
+            elemSt.GetDate().day >= start_date.day && elemSt.GetDate().day <= end_date.day)
         {
-            if (elemSt.GetDate().day >= (now->tm_mday - 7) && elemSt.GetDate().day <= now->tm_mday)
-            {
-                rating.insert(elemSt);
-            }
+            rating.insert(elemSt);
         }
     }
     for (auto elemSp : report_spend_Card)
     {
-        if (elemSp.GetDate().month == (now->tm_mon + 1) && elemSp.GetDate().year == (now->tm_year + 1900))
+        if (elemSp.GetDate().year >= start_date.year && elemSp.GetDate().year <= end_date.year &&
+            elemSp.GetDate().month >= start_date.month && elemSp.GetDate().month <= end_date.month &&
+            elemSp.GetDate().day >= start_date.day && elemSp.GetDate().day <= end_date.day)
         {
-            if (elemSp.GetDate().day >= (now->tm_mday - 7) && elemSp.GetDate().day <= now->tm_mday)
-            {
-                rating.insert(elemSp);
-            }
+            rating.insert(elemSp);
         }
     }
 
-    multiset<Spending>::reverse_iterator it = rating.rbegin();
+    multiset<Spending>::iterator it = rating.begin();
     int count = 0;
-    while (it != rating.rend() && count < 3)
+    while (it != rating.end() && count < 3)
     {
         it->Output_Spending();
         cout << endl;
         it++;
         count++;
     }
-     cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
+     cout << "\nDo you want to save the rating in the file? (yes - 1, no - 0)\n";
     bool yes;
     cin >> yes;
     if (!yes) return;
@@ -554,6 +556,7 @@ void Show_week_rating(multiset<Spending> report_spend_Wall, multiset<Spending> r
                 << it->GetTime().hours << ':' << setw(2) << setfill('0')
                 << it->GetTime().minutes << ':' << setw(2) << setfill('0')
                 << it->GetTime().seconds << "\n\n";
+            it++;
         }
     }
 }
@@ -590,7 +593,7 @@ void Monthly_report(multiset <Spending> report_spend_Wall,multiset <Spending> re
 			(*it).Output_Spending();
 			it++;
 		}
-		cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
+		cout << "\nDo you want to save the rating in the file? (yes - 1, no - 0)\n";
 		bool yes;
 		cin >> yes;
         if(!yes) return;
@@ -623,23 +626,28 @@ void Monthly_report(multiset <Spending> report_spend_Wall,multiset <Spending> re
 void Show_week_categories(multiset<Spending> report_spend_Wall, multiset<Spending> report_spend_Card)
 {
     cout << "Weekly top 3 expense categories\n";
-    Date year;
-    year.Input();
-
+    Date start_date;
+    start_date.Input();
+    Date end_date;
+    end_date.Input();
     multiset<Spending> rating;
     for (auto elemSt : report_spend_Wall)
     {
-        if (elemSt.GetDate().year == year.year) {
-            {
-                rating.insert(elemSt);
-            }
+        // Проверяем, что дата трат находится в интервале от start_date до end_date
+        if (elemSt.GetDate().year >= start_date.year && elemSt.GetDate().year <= end_date.year &&
+            elemSt.GetDate().month >= start_date.month && elemSt.GetDate().month <= end_date.month &&
+            elemSt.GetDate().day >= start_date.day && elemSt.GetDate().day <= end_date.day)
+        {
+            rating.insert(elemSt);
         }
     }
     for (auto elemSp : report_spend_Card)
     {
-        if (elemSp.GetDate().year == year.year)
+        if (elemSp.GetDate().year >= start_date.year && elemSp.GetDate().year <= end_date.year &&
+            elemSp.GetDate().month >= start_date.month && elemSp.GetDate().month <= end_date.month &&
+            elemSp.GetDate().day >= start_date.day && elemSp.GetDate().day <= end_date.day)
         {
-                rating.insert(elemSp);
+            rating.insert(elemSp);
         }
     }
     multiset<Spending>::iterator it;
@@ -652,7 +660,7 @@ void Show_week_categories(multiset<Spending> report_spend_Wall, multiset<Spendin
         it++;
         count++;
     }
-     cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
+     cout << "\nDo you want to save the rating in the file? (yes - 1, no - 0)\n";
     bool yes;
     cin >> yes;
     if (!yes) return;
@@ -728,7 +736,7 @@ void Monthly_report_categories(multiset <Spending> report_spend_Wall,multiset <S
     {
         cout << sorted_categories[i].second << ": " << sorted_categories[i].first << "$" << endl;
     }
-    cout << "Do you want to save the rating in the file? (yes - 1, no - 0)\n";
+    cout << "\nDo you want to save the rating in the file? (yes - 1, no - 0)\n";
     bool yes;
     cin >> yes;
     if(!yes) return;

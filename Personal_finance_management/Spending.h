@@ -91,7 +91,7 @@ public:
          category.Show_expense();
          cout << setw(5) << "_Data" << endl;
          data.Output();
-         cout << setw(5) << "_Time" << endl;
+         cout << "\n" << setw(5) << "_Time" << endl;
          time.Output();
      }
      bool operator<(const Spending temp) const
